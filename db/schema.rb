@@ -31,3 +31,5 @@ ActiveRecord::Schema.define(version: 2021_04_26_130102) do
 
   add_foreign_key "invoice_lines", "invoices"
 end
+
+amount_project_id_50 = [0.298e2, 0.158e1, 0.7763e2, 0.9804e2, 0.8359e2]

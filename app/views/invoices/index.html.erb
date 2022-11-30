@@ -11,15 +11,24 @@
   </thead>
 
   <tbody>
-    <% Invoice.all.each do |invoice| %>
+    <% @invoices.each do |invoice| %>
       <tr>
         <td><%= invoice.id %></td>
         <td><%= invoice.date %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= invoice.deadline %></td>
+        <% @invoice = InvoiceLine.find_by(id: invoice.id) %>
+        <td><%= @invoice.amount %></td>
+        <td><%= @invoice.tax %></td>
+        <td><%= @invoice.amount + @invoice.tax %></td>
       </tr>
+    <% end %>
+    <%  if params[:page].to_i == 0 %>
+      <%= link_to "Next page", request.params.merge(page: @page + 1) %>
+    <% elsif params[:page].to_i >= 1 %>
+      <%= link_to "Last page", request.params.merge(page: @page - 1) %>
+      <%= link_to "Next page", request.params.merge(page: @page + 1) %>
+    <% elsif params[:page].to_i == INVOICE_PER_PAGE %>
+      <%= link_to "Last page", request.params.merge(page: @page - 1) %>
     <% end %>
   </tbody>
 </table>
